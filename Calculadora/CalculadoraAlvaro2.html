@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculadora</title>
+    <link type="text/css" href="estilos.css" rel="stylesheet">
+    
+    <script>
+        'use strict'
+        //declaramos variables
+        var valor="0";//variable String que va a almacenar todo lo que introduzcamos
+        var ultimodigito=0;//ultimo digito introducido(para no repetir los signos)
+        function poner_valor(num) {
+            if(valor=="0" && valor!="0,"){
+                valor=num;
+                document.getElementById("pantalla").value=valor;
+            }else{
+                valor=valor+num;
+                document.getElementById("pantalla").value=valor;
+            }
+        }
+        function calcular(){
+            valor=eval(valor);
+            document.getElementById("pantalla").value=valor;
+        }
+        function sumar(){
+            //comprobamos cual es el ultimo valor introducido para no poner dos valores seguidos
+            ultimodigito=valor.length-1;
+            ultimodigito=valor[ultimodigito];
+            if(ultimodigito!="+"&&ultimodigito!="-"&&ultimodigito!="*"&&ultimodigito!="/"&&ultimodigito!="."){
+                valor=valor+"+";
+            }
+            
+        }
+        function restar(){
+            ultimodigito=valor.length-1;
+            ultimodigito=valor[ultimodigito];
+            if(ultimodigito!="+"&&ultimodigito!="-"&&ultimodigito!="*"&&ultimodigito!="/"&&ultimodigito!="."){
+                valor=valor+"-";
+            }
+            
+        }
+        function multiplicar(){
+            ultimodigito=valor.length-1;
+            ultimodigito=valor[ultimodigito];
+            if(ultimodigito!="+"&&ultimodigito!="-"&&ultimodigito!="*"&&ultimodigito!="/"&&ultimodigito!="."){
+                valor=valor+"*";
+            }
+            
+        }
+        function dividir(){
+            ultimodigito=valor.length-1;
+            ultimodigito=valor[ultimodigito];
+            if(ultimodigito!="+"&&ultimodigito!="-"&&ultimodigito!="*"&&ultimodigito!="/"&&ultimodigito!="."){
+                valor=valor+"/";
+            }
+            
+        }
+        function coma(){
+            ultimodigito=valor.length-1;
+            ultimodigito=valor[ultimodigito];
+            if(valor==0){
+                valor="0.";
+                //si el ultimo digito no es un signo de operacion ni un punto entra
+            }else if(ultimodigito!="+"&&ultimodigito!="-"&&ultimodigito!="*"&&ultimodigito!="/"&&ultimodigito!="."){
+                var cont=0;
+                //recorre los valores introducidos para no poner dos comas en el mismo numero,solo acepta coma si en el valor introducido entre signos hay una o ninguna coma
+                for (let c = 0; c < valor.length; c++) {
+                    if(valor[c]=="."){
+                        cont=1;
+                    }
+                    if(valor[c]=="+"||valor[c]=="-"||valor[c]=="*"||valor[c]=="/"){
+                        cont=0;
+                    }
+                    
+                }
+                if(cont==0&&ultimodigito!="+"&&ultimodigito!="-"&&ultimodigito!="*"&&ultimodigito!="/"&&ultimodigito!="."){
+                    valor+=".";
+                }
+                
+            }
+        }
+
+        function borrar() {
+            valor="0";
+            document.getElementById("pantalla").value=valor;
+        }
+    </script>
+</head>
+<body>
+    <table class="Calculadora">
+        <tr><td colspan="4"><input type="text" readonly name="pantalla" id="pantalla" style="text-align: right" value="0"></td></tr>
+        <br>
+        <tr>
+            <th colspan="4"><button onclick="borrar()">C</button></th>
+        </tr>
+        <tr >
+            <td><button width onclick="poner_valor('1')">1</button></td>
+            <td><button onclick="poner_valor('2')">2</button></td>
+            <td><button onclick="poner_valor('3')">3</button></td>
+            <td><button onclick="poner_valor('4')">4</button></td>
+        </tr>    
+        <tr>
+            <td><button onclick="poner_valor('5')">5</button></td>
+            <td><button onclick="poner_valor('6')">6</button></td>
+            <td><button onclick="poner_valor('7')">7</button></td>
+            <td><button onclick="poner_valor('8')">8</button></td>
+        </tr>   
+        <tr>
+            <td><button onclick="poner_valor('9')">9</button></td>
+            <td><button onclick="poner_valor('0')">0</button></td>
+            <td><button onclick="sumar()">+</button></td>
+            <td><button onclick="restar()">-</button></td>
+        </tr>    
+        <tr>
+            <td><button onclick="multiplicar()">*</button></td>
+            <td><button onclick="dividir()">/</button></td>
+            <td><button onclick="coma()">,</button></td>
+            <td><button id="calcular" onclick="calcular('=')">=</button></td>
+        </tr>
+            
+            
+            
+            
+    </table>
+</body>
+</html>
